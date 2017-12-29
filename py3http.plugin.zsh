@@ -4,6 +4,9 @@
 # Use with plugin manager that supports single plugin load per all active Zsh
 # sessions.
 #
+# You should copy `py3http.conf.default' to `py3http.conf' and adapt it to your
+# needs. The service will use the `*.default' file if there is no `*.conf' file.
+#
 
 0="${${(M)0##/*}:-${(%):-%N}}"  # filter absolute path, fallback to %N
 
@@ -25,6 +28,7 @@ if [[ -f "$cfg" ]]; then
         fi
     fi
 
+    builtin cd "$ZSRV_DIR"
     builtin trap 'kill -INT $ZSRV_PID; command sleep 2; builtin exit 0' HUP
     "$ZSRV_DIR"/py3http.py "$cfg" >>!"$logfile" 2>&1 &; ZSRV_PID=$!
     builtin echo "$ZSRV_PID" >! "$pidfile"
