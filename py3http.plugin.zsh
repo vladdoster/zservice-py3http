@@ -10,6 +10,8 @@
 
 0="${${(M)0##/*}:-${(%):-%N}}"  # filter absolute path, fallback to %N
 
+(( ! ${+ZSRV_WORK_DIR} || ! ${+ZSRV_ID} )) && { print "Error: plugin \`zservices/py3http' needs to be loaded as service, aborting."; return 1; }
+
 typeset -g ZSRV_DIR="${0:h}"
 typeset -g ZSRV_PID
 
