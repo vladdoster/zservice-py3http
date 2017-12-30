@@ -20,7 +20,7 @@ local cfg="${ZSRV_DIR}/py3http.conf"
 if [[ -f "$cfg" ]]; then
     { local pid="$(<$pidfile)"; } 2>/dev/null
     if [[ ${+commands[pkill]} = 1 && "$pid" = <-> && $pid -gt 0 ]]; then
-        if command pkill -INT -f -F "$pidfile" py3http.py; then
+        if command pkill -HUP -f -F "$pidfile" py3http.py; then
             builtin print "ZSERVICE: Stopped previous py3http.py instance, PID: $pid" >>! "$logfile"
             LANG=C sleep 1.5
         else
@@ -29,7 +29,7 @@ if [[ -f "$cfg" ]]; then
     fi
 
     builtin cd "$ZSRV_DIR"
-    builtin trap 'kill -INT $ZSRV_PID; command sleep 2; builtin exit 0' HUP
+    builtin trap 'kill -HUP $ZSRV_PID; command sleep 2; builtin exit 0' HUP
     "$ZSRV_DIR"/py3http.py "$cfg" >>!"$logfile" 2>&1 &; ZSRV_PID=$!
     builtin echo "$ZSRV_PID" >! "$pidfile"
     LANG=C command sleep 0.7
