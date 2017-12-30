@@ -2,7 +2,7 @@
 # A z-service file that runs python3 module http.server to serve a directory.
 #
 # Use with plugin manager that supports single plugin load per all active Zsh
-# sessions.
+# sessions. The p-m should set parameters ZSRV_WORK_DIR and ZSRV_ID.
 #
 # You should copy `py3http.conf.default' to `py3http.conf' and adapt it to your
 # needs. The service will use the `*.default' file if there is no `*.conf' file.
