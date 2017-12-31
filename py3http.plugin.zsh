@@ -31,7 +31,7 @@ if [[ -f "$cfg" ]]; then
     fi
 
     builtin cd "$ZSRV_DIR"
-    builtin trap 'kill -HUP $ZSRV_PID; command sleep 2; builtin exit 0' HUP
+    builtin trap 'kill -HUP $ZSRV_PID; command sleep 2; builtin exit 1' HUP
     "$ZSRV_DIR"/py3http.py "$cfg" >>!"$logfile" 2>&1 &; ZSRV_PID=$!
     builtin echo "$ZSRV_PID" >! "$pidfile"
     LANG=C command sleep 0.7
