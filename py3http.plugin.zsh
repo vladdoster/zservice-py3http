@@ -8,7 +8,7 @@
 # needs. The service will use the `*.default' file if there is no `*.conf' file.
 #
 
-0="${${(M)0##/*}:-${(%):-%N}}"  # filter absolute path, fallback to %N
+0="${${ZERO:-${(M)0##/*}}:-${(%):-%N}}"  # try ZERO, filter absolute path from $0, fallback to %N
 
 (( ! ${+ZSRV_WORK_DIR} || ! ${+ZSRV_ID} )) && { print "Error: plugin \`zservices/py3http' needs to be loaded as service, aborting."; return 1; }
 
